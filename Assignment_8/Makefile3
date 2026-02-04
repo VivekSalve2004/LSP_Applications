@@ -1,0 +1,23 @@
+CC = gcc
+CFLAGS = -Wall -Wextra -O2
+TARGET = app
+SRC = main.c
+
+all: $(TARGET)
+
+
+$(TARGET): $(SRC)
+	$(CC) $(CFLAGS) $(SRC) -o $(TARGET)
+
+run: $(TARGET)
+	./$(TARGET)
+
+clean:
+	rm -f $(TARGET)
+
+help:
+	@echo "Usage instructions for this Makefile:"
+	@echo "  make        - Build the $(TARGET) binary"
+	@echo "  make run    - Build (if necessary) and run the application"
+	@echo "  make clean  - Remove the $(TARGET) binary and clean the directory"
+	@echo "  make help   - Display these usage instructions"

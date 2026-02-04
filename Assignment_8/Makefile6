@@ -1,0 +1,23 @@
+CC = gcc
+CFLAGS = -Wall
+LIB_NAME = libmath.so
+APP_BIN = calculator
+
+all: so app
+
+so:
+	$(CC) $(CFLAGS) -fPIC -c operations.c -o operations.o
+	$(CC) -shared -o $(LIB_NAME) operations.o
+	@echo "Shared library $(LIB_NAME) built with PIC."
+
+app:
+	$(CC) $(CFLAGS) -o $(APP_BIN) main_calc.c -L. -lmath
+	@echo "Application '$(APP_BIN)' linked to $(LIB_NAME)."
+
+run:
+	@echo "Setting LD_LIBRARY_PATH and executing..."
+	LD_LIBRARY_PATH=. ./$(APP_BIN)
+
+clean:
+	rm -f *.o *.so $(APP_BIN)
+	@echo "Cleanup complete."

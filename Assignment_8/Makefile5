@@ -1,0 +1,24 @@
+CC = gcc
+CFLAGS = -Wall
+LIB_NAME = libmath.a
+LIB_OBJ = math_ops.o
+APP_SRC = calc_app.c
+APP_OBJ = calc_app.o
+BIN = calc_app_bin
+
+all: lib app
+
+lib: $(LIB_OBJ)
+	ar rcs $(LIB_NAME) $(LIB_OBJ)
+	@echo "Static library $(LIB_NAME) successfully archived."
+
+app: $(APP_OBJ) lib
+	$(CC) $(CFLAGS) -o $(BIN) $(APP_OBJ) -L. -lmath
+	@echo "Binary '$(BIN)' created by linking with $(LIB_NAME)."
+
+%.o: %.c
+	$(CC) $(CFLAGS) -c $< -o $@
+
+clean:
+	rm -f *.o *.a $(BIN)
+	@echo "Build artifacts removed."

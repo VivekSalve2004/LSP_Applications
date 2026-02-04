@@ -1,0 +1,12 @@
+CC = gcc
+
+all: app
+
+app: main.c
+	$(CC) main.c -o app
+
+run: app
+	./app
+
+clean:
+	rm -f app

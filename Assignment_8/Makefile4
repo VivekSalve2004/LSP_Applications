@@ -1,0 +1,22 @@
+CC = gcc
+CFLAGS = -Wall -Wextra -O2
+TARGET = app
+SRC = main.c helper.c
+OBJ = $(SRC:.c=.o)
+
+all: $(TARGET)
+
+$(TARGET): $(OBJ)
+	$(CC) $(CFLAGS) $(OBJ) -o $(TARGET)
+
+%.o: %.c helper.h
+	$(CC) $(CFLAGS) -c $< -o $@
+
+run: $(TARGET)
+	./$(TARGET)
+
+clean:
+	rm -f $(TARGET) $(OBJ)
+
+help:
+	@echo "Usage: make [all|run|clean|help]"
